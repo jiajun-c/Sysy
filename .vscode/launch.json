@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/eva/work/src",
+      "program": "/Users/eva/work/src/build/Debug/outDebug"
+    }
+  ]
+}
