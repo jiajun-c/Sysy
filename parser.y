@@ -355,8 +355,26 @@ Stmt
 |Block {
     $$ = new StmtAST();
 }
+|IF LP Cond RP Stmt {
+
+}
+| IF LP Cond RP Stmt ELSE  Stmt {
+
+}
+| WHILE LP Cond RP Stmt {
+
+}
+| BREAK SEMICOLON {
+
+}
+| CONTINUE SEMICOLON {
+
+}
 |RETURN Exp SEMICOLON {
     $$ = new StmtAST();
+}
+|RETURN SEMICOLON {
+
 }
 ;
 
