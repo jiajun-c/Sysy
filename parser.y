@@ -116,7 +116,7 @@
 
 %%
 Program:CompUnit {
-          root = unique_ptr<CompUnitAST>($1);
+        root = unique_ptr<CompUnitAST>($1);
 		}
 		;
 
@@ -344,7 +344,21 @@ BlockItem:	 Decl {
 // | 'return' [Exp] ';'
 
 
-
+Stmt
+: SEMICOLON {$$ = new StmtAST();}
+|LVal ASSIGN Exp SEMICOLON{
+    $$ = new StmtAST();
+}
+|Exp SEMICOLON {
+    $$ = new StmtAST();
+}
+|Block {
+    $$ = new StmtAST();
+}
+|RETURN Exp SEMICOLON {
+    $$ = new StmtAST();
+}
+;
 
 
 
