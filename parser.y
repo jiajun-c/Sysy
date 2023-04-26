@@ -343,41 +343,60 @@ BlockItem:	 Decl {
 // | 'break' ';' | 'continue' ';'
 // | 'return' [Exp] ';'
 
-
 Stmt
 : SEMICOLON {$$ = new StmtAST();}
 |LVal ASSIGN Exp SEMICOLON{
     $$ = new StmtAST();
+	$$->lVal = unique_ptr<LValAST>($1);
+	$$->exp = unique_ptr<AddExpAST>($3);
+	$$->sType = ASS;
 }
 |Exp SEMICOLON {
     $$ = new StmtAST();
+	$$->sType = EXP;
+	$$->exp = unique_ptr<AddExpAST>($1);
 }
 |Block {
     $$ = new StmtAST();
+	$$->sType = BLK;
+	$$->block = unique_ptr<BlockAST>($1);
 }
-|IF LP Cond RP Stmt {
+|IF LP Cond RP LC Stmt RC {
+    $$ = new StmtAST();
+	$$->sType = SEL;
+	$$->
+}
+| IF LP Cond RP LC Stmt RC ELSE LC Stmt RC {
+    $$ = new StmtAST();
 
 }
-| IF LP Cond RP Stmt ELSE  Stmt {
-
-}
-| WHILE LP Cond RP Stmt {
+| WHILE LP Cond RP LC Stmt RC {
+	$$ = new StmtAST();
 
 }
 | BREAK SEMICOLON {
+    $$ = new StmtAST();
 
 }
 | CONTINUE SEMICOLON {
+    $$ = new StmtAST();
 
 }
-|RETURN Exp SEMICOLON {
+|RETURN ReturnStmt SEMICOLON {
     $$ = new StmtAST();
+	$$->sType = RET;
+	$$->returnStmt = unique_ptr<ReturnStmtAST>($2);
 }
 |RETURN SEMICOLON {
-
+	$$ = new StmtAST();
 }
 ;
 
+ReturnStmt
+: Exp {
+	$$ = new ReturnStmtAST();
+	$$->exp = unique_ptr<AddExpAST>($1);
+} 
 
 
 
